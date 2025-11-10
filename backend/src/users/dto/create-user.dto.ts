@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer';
 import {
+  IsBoolean,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -28,6 +29,9 @@ export class CreateUserDto {
   @Transform(({ value }) => value.trim())
   @IsNotEmpty({ message: 'چرا شمارتو وارد نکردی 😑 ' })
   phone: string;
+
+  @IsBoolean({ message: 'تایید قوانین سایت باید به شکل boolean ارسال شود' })
+  acceptedTerms: boolean;
 
   @IsEnum(UserRoleEnum)
   @IsNotEmpty({ message: 'نقشت چیه؟ چرا بهم نمیگی؟ بنگاهی یا کاربر معمولی؟😄' })
