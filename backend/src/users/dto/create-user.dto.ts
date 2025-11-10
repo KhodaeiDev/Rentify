@@ -35,7 +35,7 @@ export class CreateUserDto {
 
   @IsEnum(UserRoleEnum)
   @IsNotEmpty({ message: 'نقشت چیه؟ چرا بهم نمیگی؟ بنگاهی یا کاربر معمولی؟😄' })
-  role: string;
+  role: UserRoleEnum;
 
   @IsOptional()
   @IsEmail({}, { message: 'ایمیلت که شبیه ایمیل نیست داداش! 🙄' })
