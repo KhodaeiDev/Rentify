@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { OtpService } from './otp/otp.service';
+import { OtpModule } from './otp/otp.module';
 
 @Module({
   imports: [
@@ -21,8 +23,9 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
     }),
     UsersModule,
+    OtpModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, OtpService],
 })
 export class AppModule {}
