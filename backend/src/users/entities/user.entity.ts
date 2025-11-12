@@ -26,16 +26,19 @@ export class User {
   password: string;
 
   @Column({ nullable: true })
-  profile_picture: string;
+  profile_picture?: string;
 
   @Column({ nullable: true })
-  email: string;
+  email?: string;
+
+  @Column({ nullable: true })
+  officeName?: string;
 
   @Column({ type: 'enum', enum: UserRoleEnum })
   role: UserRoleEnum;
 
   @Column({ nullable: true })
-  job: string;
+  job?: string;
 
   @Column()
   acceptedTerms: boolean;
