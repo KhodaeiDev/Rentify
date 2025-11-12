@@ -17,13 +17,13 @@ const Navbar = () => {
   }, [ShowMobileMenu]);
 
   return (
-    <div className='absolute top-0 left-0 w-full z-50 shadow-sm'>
+    <div className='absolute top-0 left-0 w-full z-50 '>
       <div className='container mx-auto flex items-center justify-between py-3 px-4 md:px-8 lg:px-20'>
         {/* Logo */}
         <img src={assets.logo} alt='Logo' className='w-20 md:w-20 lg:w-28' />
 
         {/* Desktop Menu */}
-        <ul className='hidden md:flex items-center gap-3 lg:gap-7 text-black text-xs lg:text-base whitespace-nowrap'>
+        <ul className='hidden md:flex items-center gap-3 lg:gap-7 text-white text-xs lg:text-base whitespace-nowrap'>
           <li>
             <a href='rahn' className='hover:text-neutral-tint-1'>
               رهن و اجاره
@@ -48,11 +48,11 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className='hidden md:flex items-center gap-2 lg:gap-4'>
-          <button className='bg-white px-4 py-1.5 rounded-full border border-neutral-300 text-xs lg:text-base'>
+          <button className='bg-white px-4 py-1.5 rounded-full border border-neutral-300 text-xs lg:text-base cursor-pointer'>
             ورود / ثبت نام
           </button>
 
-          <button className='bg-primary-tint-1 text-white px-4 py-1.5 rounded-full text-xs lg:text-base'>
+          <button className='bg-primary-tint-1 text-white px-4 py-1.5 rounded-full text-xs lg:text-base cursor-pointer'>
             + ثبت آگهی رایگان
           </button>
         </div>
