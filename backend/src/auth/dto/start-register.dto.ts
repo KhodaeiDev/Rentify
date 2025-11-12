@@ -1,19 +1,15 @@
 import { Transform } from 'class-transformer';
 import {
   IsBoolean,
-  IsEmail,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsPhoneNumber,
   IsString,
   Length,
-  Matches,
-  MinLength,
 } from 'class-validator';
-import { UserRoleEnum } from '../enums/userRole-enum';
+import { UserRoleEnum } from 'src/users/enums/userRole-enum';
 
-export class CreateUserDto {
+export class StartRegisterDto {
   @IsString()
   @Length(3, 50, { message: 'اسم باید بین ۳ تا ۵۰ کاراکتر باشه' })
   @IsNotEmpty({ message: 'نام کاربر الزامی می باشد' })

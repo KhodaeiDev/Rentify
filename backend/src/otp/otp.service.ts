@@ -15,10 +15,12 @@ export class OtpService {
     });
   }
 
-  async GenerateOtp(phone: string): Promise<void> {
+  async GenerateOtp(phone: string) {
     const code: number = Math.floor(1000 + Math.random() * 9000);
 
     await this.client.set(`otp:${phone}`, code, 'EX', 120);
+
+    return code;
   }
 
   async VerifyOtp(phone: string, code: number) {

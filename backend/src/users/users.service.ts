@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,10 +19,13 @@ export class UsersService {
 
   async findOneByPhone(phone: string) {
     const user = await this.userRepository.findOneBy({
-      phone: phone,
+      phone,
     });
-    if (!user) return false;
+    if (user)
+      throw new BadRequestException(
+        'کاربری با این شماره موبایل قبلا ثبت نام کرده است',
+      );
 
-    return user;
+    return true;
   }
 }
