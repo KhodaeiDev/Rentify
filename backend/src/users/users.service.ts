@@ -25,11 +25,6 @@ export class UsersService {
     const user = await this.userRepository.findOneBy({
       phone,
     });
-    if (user)
-      throw new BadRequestException(
-        'کاربری با این شماره موبایل قبلا ثبت نام کرده است',
-      );
-
-    return true;
+    return user ? user : false;
   }
 }
