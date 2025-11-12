@@ -1,7 +1,10 @@
+import Navbar from "../Navbar";
+
 export default function SearchFilter() {
   return (
     <div>
-      <div className="bg-[url(/public/images/bg-home.svg)] flex flex-col justify-center items-center bg-no-repeat bg-cover mb-36 rounded-b-2xl">
+      <Navbar/>
+      <div className="bg-[url(/public/images/bg-home.svg)] flex flex-col justify-center items-center bg-no-repeat bg-cover mb-36 rounded-b-2xl pt-28">
         <div className="mb-8">
           <p className="heading-h3 text-white">
             در <span className="text-primary">رنتی‌فای</span> دنبال چه ملکی
