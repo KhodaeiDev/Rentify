@@ -10,6 +10,7 @@ import {
   Length,
   Matches,
   MinLength,
+  ValidateIf,
 } from 'class-validator';
 import { UserRoleEnum } from '../enums/userRole-enum';
 
@@ -36,4 +37,9 @@ export class CreateUserDto {
   @IsEnum(UserRoleEnum)
   @IsNotEmpty({ message: 'نقشت چیه؟ چرا بهم نمیگی؟ بنگاهی یا کاربر معمولی؟😄' })
   role: UserRoleEnum;
+
+  @ValidateIf((o) => o.role === UserRoleEnum.AGENT)
+  @IsString({ message: 'نام دفتر الزامی است' })
+  @IsNotEmpty({ message: 'نام دفتر الزامی است' })
+  officeName?: string;
 }
