@@ -26,9 +26,9 @@ export class CreateUserDto {
   last_name: string;
 
   @IsString()
-  @IsPhoneNumber('IR', { message: 'شماره موبایلت ایرانی نیست؟! 🤔' })
+  @IsPhoneNumber('IR', { message: 'شماره موبایل باید 11 رقم باشد' })
   @Transform(({ value }) => value.trim())
-  @IsNotEmpty({ message: 'چرا شمارتو وارد نکردی 😑 ' })
+  @IsNotEmpty({ message: 'لطفا شماره موبایل را وارد کنید' })
   phone: string;
 
   @IsBoolean({ message: 'تایید قوانین سایت باید به شکل boolean ارسال شود' })

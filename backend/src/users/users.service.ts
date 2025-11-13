@@ -12,10 +12,15 @@ export class UsersService {
   private readonly userRepository: Repository<User>;
 
   async create(createUserDto: CreateUserDto) {
+    const firstUser = await this.userRepository.count();
+
     if (createUserDto.role !== UserRoleEnum.AGENT)
       delete createUserDto.officeName;
 
-    const user = this.userRepository.create(createUserDto);
+    const user = this.userRepository.create({
+      ...createUserDto,
+      role: firstUser < 1 ? UserRoleEnum.ADMIN : createUserDto.role,
+    });
     await this.userRepository.save(user);
 
     return user;
@@ -25,11 +30,6 @@ export class UsersService {
     const user = await this.userRepository.findOneBy({
       phone,
     });
-    if (user)
-      throw new BadRequestException(
-        'کاربری با این شماره موبایل قبلا ثبت نام کرده است',
-      );
-
-    return true;
+    return user ? user : false;
   }
 }
