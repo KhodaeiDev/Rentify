@@ -9,10 +9,12 @@ import { OtpService } from 'src/otp/otp.service';
 import { SmsService } from 'src/sms/sms.service';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
 import { StartLoginDto } from './dto/start-login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly jwtService: JwtService,
     private readonly userService: UsersService,
     private readonly otpService: OtpService,
     private readonly smsService: SmsService,

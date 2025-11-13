@@ -5,9 +5,18 @@ import { UsersService } from 'src/users/users.service';
 import { UsersModule } from 'src/users/users.module';
 import { OtpModule } from 'src/otp/otp.module';
 import { SmsModule } from 'src/sms/sms.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [UsersModule, OtpModule, SmsModule],
+  imports: [
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
+    UsersModule,
+    OtpModule,
+    SmsModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService],
 })
