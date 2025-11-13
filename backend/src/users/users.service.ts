@@ -12,10 +12,15 @@ export class UsersService {
   private readonly userRepository: Repository<User>;
 
   async create(createUserDto: CreateUserDto) {
+    const firstUser = await this.userRepository.count();
+
     if (createUserDto.role !== UserRoleEnum.AGENT)
       delete createUserDto.officeName;
 
-    const user = this.userRepository.create(createUserDto);
+    const user = this.userRepository.create({
+      ...createUserDto,
+      role: firstUser < 1 ? UserRoleEnum.ADMIN : createUserDto.role,
+    });
     await this.userRepository.save(user);
 
     return user;
