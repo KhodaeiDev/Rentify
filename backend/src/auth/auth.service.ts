@@ -51,8 +51,11 @@ export class AuthService {
     const user = await this.userService.create(userData);
     await this.otpService.deletTempUser(phone);
 
-    //! Jwt add
-    return user;
+    const payload = { userId: user.id, phone: user.phone, role: user.role };
+    const token = this.jwtService.sign(payload);
+    return {
+      accessToken: token,
+    };
   }
 
   async startLogin(startLoginDto: StartLoginDto) {
@@ -81,6 +84,10 @@ export class AuthService {
         'کد شما صحیح نمی باشد. لطفا مجددا تلاش فرمایید',
       );
 
-    //! JWT assign
+    const payload = { userId: user.id, phone: user.phone, role: user.role };
+    const token = this.jwtService.sign(payload);
+    return {
+      accessToken: token,
+    };
   }
 }
