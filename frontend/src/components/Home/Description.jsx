@@ -2,12 +2,12 @@ export default function Description() {
   return (
     <div className="mx-28 mb-8">
       <div>
-        <p className="heading-h3 text-center mb-10">
+        <p className="heading-h3 text-center mb-10 cursor-default">
           با خدمات <span className="text-primary">رنتی‌فای</span> آشنا شوید
         </p>
       </div>
 
-      <div className="grid grid-cols-7 mb-16">
+      <div className="grid grid-cols-7 mb-16 cursor-default">
         <div className="">
           <div className="bg-neutral-tint-1 rounded-full w-28 h-28 flex justify-center items-center relative mb-4 mx-6">
             <img
@@ -99,7 +99,7 @@ export default function Description() {
 
       <div className="grid grid-cols-2 bg-neutral-tint-1 rounded-2xl mb-18">
         <div className="flex flex-col justify-between items-center m-14">
-          <div className="">
+          <div className="cursor-default">
             <p className="text-white text-h3 text-center">
               برای دریافت وام رهن خانه کلیک کنید
             </p>

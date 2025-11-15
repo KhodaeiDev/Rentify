@@ -2,8 +2,8 @@ export default function TopWeek() {
   return (
     <div className="mx-28 mb-16">
       <div className="flex justify-between items-center">
-        <p className="text-black text-h3">پر بازدید ترین‌های هفته‌ی گذشته</p>
-        <div className="flex gap-x-0.5 ml-4">
+        <p className="text-black text-h3 cursor-default">پر بازدید ترین‌های هفته‌ی گذشته</p>
+        <div className="flex gap-x-0.5 ml-4 cursor-pointer">
           <p className="text-btn-s text-primary">مشاهده همه</p>
           <img src="/src/assets/icons/left-arrow-2.svg" />
         </div>
@@ -22,12 +22,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-amber-600 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">
@@ -83,12 +83,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-2.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-success rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">آپارتمان</p>
@@ -142,12 +142,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-primary-shade-2 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">ویلا</p>
@@ -201,12 +201,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-amber-600 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">
@@ -262,12 +262,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-amber-600 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">
@@ -323,12 +323,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-amber-600 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">
@@ -384,12 +384,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-amber-600 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">
@@ -445,12 +445,12 @@ export default function TopWeek() {
               <img
                 src="/src/assets/icons/heart-1.svg"
                 alt="like"
-                className="w-3 h-3"
+                className="w-3 h-3 cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="p-4 cursor-pointer">
             <div className="flex mb-3">
               <div className="w-20 h-7 bg-amber-600 rounded-2xl flex justify-center items-center">
                 <p className="text-body-xxs px-2 py-1 text-white">

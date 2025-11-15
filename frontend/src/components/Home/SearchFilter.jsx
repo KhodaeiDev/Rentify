@@ -3,10 +3,10 @@ import Navbar from "../Navbar";
 export default function SearchFilter() {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="bg-[url(/public/images/bg-home.svg)] flex flex-col justify-center items-center bg-no-repeat bg-cover mb-36 rounded-b-2xl pt-28">
         <div className="mb-8">
-          <p className="heading-h3 text-white">
+          <p className="heading-h3 text-white cursor-default">
             در <span className="text-primary">رنتی‌فای</span> دنبال چه ملکی
             هستید؟
           </p>
@@ -15,29 +15,29 @@ export default function SearchFilter() {
         <div className="grid grid-cols-5 h-26 max-w-201.5 bg-white rounded-[64px] overflow-hidden">
           <div className="flex gap-x-24 col-span-4 justify-center items-center px-18">
             <div>
-              <div className="flex justify-between items-center text-neutral-tint-3 gap-y-2.5 cursor-pointer">
+              <div className="flex justify-between items-center text-neutral-tint-3 gap-y-2.5 cursor-pointer text-body-1xs">
                 <p>موقعیت مکانی</p>
                 <img src="/src/assets/icons/down-arrow.svg" />
               </div>
-              <p>تهران-نیاوران</p>
+              <p className="cursor-default text-btn-lg">تهران-نیاوران</p>
             </div>
             <div>
-              <div className="flex justify-between items-center text-neutral-tint-3 gap-y-2.5 cursor-pointer">
+              <div className="flex justify-between items-center text-neutral-tint-3 gap-y-2.5 cursor-pointer text-body-1xs">
                 <p>نوع ملک</p>
                 <img src="/src/assets/icons/down-arrow.svg" />
               </div>
-              <p>ویلا</p>
+              <p className="cursor-default text-btn-lg">ویلا</p>
             </div>
             <div>
-              <div className="flex justify-between items-center text-neutral-tint-3 gap-y-2.5 cursor-pointer">
+              <div className="flex justify-between items-center text-neutral-tint-3 gap-y-2.5 cursor-pointer text-body-1xs">
                 <p>نوع قرارداد</p>
                 <img src="/src/assets/icons/down-arrow.svg" />
               </div>
-              <p>رهن</p>
+              <p className="cursor-default text-btn-lg">رهن</p>
             </div>
           </div>
 
-          <div className="bg-primary flex justify-center items-center gap-x-1 cursor-pointer">
+          <div className="bg-primary flex justify-center items-center gap-x-1 cursor-pointer text-btn-s  text-white">
             <img
               src="/src/assets/icons/search.svg"
               alt="Search"
@@ -58,7 +58,7 @@ export default function SearchFilter() {
             </div>
 
             <div className="relative flex justify-between bg-white m-2 px-4 py-3.5 rounded-lg">
-              <div className="">
+              <div className="cursor-default">
                 <p className="text-black text-h6">ویلا</p>
                 <p className="text-neutral-500 text-body-1xs">+92ملک</p>
               </div>
@@ -78,7 +78,7 @@ export default function SearchFilter() {
             </div>
 
             <div className="relative flex justify-between bg-white m-2 px-4 py-3.5 rounded-lg">
-              <div className="">
+              <div className="cursor-default">
                 <p className="text-black text-h6">آپارتمان</p>
                 <p className="text-neutral-500 text-body-1xs">+92ملک</p>
               </div>
@@ -98,7 +98,7 @@ export default function SearchFilter() {
             </div>
 
             <div className="relative flex justify-between bg-white m-2 px-4 py-3.5 rounded-lg">
-              <div className="">
+              <div className="cursor-default">
                 <p className="text-black text-h6">خانه ویلایی</p>
                 <p className="text-neutral-500 text-body-1xs">+92ملک</p>
               </div>

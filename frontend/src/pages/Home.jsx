@@ -7,7 +7,7 @@ import TopWeek from "../components/Home/TopWeek";
 
 export default function Home() {
   return (
-    <div className="w-full bg-primary-tint-6">
+    <div>
       {/* HEADER Component */}
       <SearchFilter />
       <TopWeek />
