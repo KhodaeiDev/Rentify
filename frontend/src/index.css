@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
-
 @font-face {
   font-family: "Vazirmatn";
   src: url("/public/fonts/webFonts/Vazirmatn[wght].woff2")
@@ -260,5 +259,14 @@
     font-weight: var(--font-weight-light);
     font-size: var(--text-caption-md);
     line-height: var(--leading-caption);
+  }
+
+  .scroll-area::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-area {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
   }
 }
