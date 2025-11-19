@@ -1,14 +1,14 @@
 export default function Description() {
   return (
-    <div className="mx-28 mb-8">
+    <div className="mx-28 mb-8 hidden md:block">
       <div>
-        <p className="heading-h3 text-center mb-10">
+        <p className="heading-h3 text-center mb-10 cursor-default">
           با خدمات <span className="text-primary">رنتی‌فای</span> آشنا شوید
         </p>
       </div>
 
-      <div className="grid grid-cols-7 mb-16">
-        <div className="">
+      <div className="grid grid-cols-7 mb-16 cursor-default">
+        <div>
           <div className="bg-neutral-tint-1 rounded-full w-28 h-28 flex justify-center items-center relative mb-4 mx-6">
             <img
               src="/src/assets/icons/search-2.svg"
@@ -31,7 +31,7 @@ export default function Description() {
           <div className="border-2 border-neutral-tint-2 w-28 mt-14 mr-6 rounded-full"></div>
         </div>
 
-        <div className="">
+        <div>
           <div className="bg-neutral-tint-1 rounded-full w-28 h-28 flex justify-center items-center relative mb-4 mx-6">
             <img
               src="/src/assets/icons/search-2.svg"
@@ -77,7 +77,7 @@ export default function Description() {
           <div className="border-2 border-neutral-tint-2 w-28 mt-14 mr-6 rounded-full"></div>
         </div>
 
-        <div className="">
+        <div>
           <div className="bg-neutral-tint-1 rounded-full w-28 h-28 flex justify-center items-center relative mb-4 mx-6">
             <img
               src="/src/assets/icons/search-2.svg"
@@ -99,11 +99,11 @@ export default function Description() {
 
       <div className="grid grid-cols-2 bg-neutral-tint-1 rounded-2xl mb-18">
         <div className="flex flex-col justify-between items-center m-14">
-          <div className="">
-            <p className="text-white text-h3 text-center">
+          <div className="cursor-default">
+            <p className="text-white heading-h4 text-center">
               برای دریافت وام رهن خانه کلیک کنید
             </p>
-            <p className="text-center text-neutral-tint-3 text-body-1xs">
+            <p className="text-center text-neutral-tint-3 text-body-s">
               دریافت وام با کم‌ترین بهره و سریع‌ترین زمان ممکن
             </p>
           </div>
