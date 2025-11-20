@@ -23,9 +23,6 @@ export class User {
   last_name: string;
 
   @Column({ nullable: true })
-  password: string;
-
-  @Column({ nullable: true })
   profile_picture?: string;
 
   @Column({ nullable: true })

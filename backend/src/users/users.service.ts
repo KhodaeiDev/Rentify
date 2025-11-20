@@ -32,4 +32,26 @@ export class UsersService {
     });
     return user ? user : false;
   }
+
+  async getUserData(userId: number) {
+    return await this.findOneById(userId);
+  }
+
+  async findOneById(id: number) {
+    const user = await this.userRepository.findOneBy({
+      id,
+    });
+    if (!user) throw new BadRequestException('کاربر مورد نظر یافت نشد');
+
+    return user;
+  }
+
+  async updateUser(updateUserDto: UpdateUserDto, userId: number) {
+    const user = await this.findOneById(userId);
+
+    const updateUserInfo = this.userRepository.merge(user, updateUserDto);
+    await this.userRepository.save(updateUserInfo);
+
+    return await this.findOneById(userId);
+  }
 }
