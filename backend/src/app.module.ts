@@ -10,6 +10,7 @@ import { SmsModule } from './sms/sms.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RoleGuard } from './auth/guards/role.guard';
 
 @Module({
   imports: [
@@ -38,6 +39,10 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
     },
   ],
 })
