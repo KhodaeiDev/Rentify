@@ -6,6 +6,7 @@ import email from './email.png'
 import location from './location.png'
 import time from './time.png'
 import aboutus from './aboutus.png'
+import login from './login.png'
 
 export const assets = {
     logo,
@@ -15,5 +16,6 @@ export const assets = {
     email,
     location,
     time,
-    aboutus
+    aboutus,
+    login
 };
