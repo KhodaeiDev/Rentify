@@ -5,8 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { UserRoleEnum } from '../enums/userRole-enum';
+import { Property } from 'src/property/entities/property.entity';
 
 @Entity()
 export class User {
@@ -39,6 +41,9 @@ export class User {
 
   @Column()
   acceptedTerms: boolean;
+
+  @OneToMany(() => Property, (p) => p.creator)
+  properties: Property[];
 
   @CreateDateColumn()
   createdAt: Date;
