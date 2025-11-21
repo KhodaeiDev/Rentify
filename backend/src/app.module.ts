@@ -8,6 +8,10 @@ import { OtpService } from './otp/otp.service';
 import { OtpModule } from './otp/otp.module';
 import { SmsModule } from './sms/sms.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RoleGuard } from './auth/guards/role.guard';
+import { ContactUsModule } from './contact-us/contact-us.module';
 
 @Module({
   imports: [
@@ -28,8 +32,20 @@ import { AuthModule } from './auth/auth.module';
     OtpModule,
     SmsModule,
     AuthModule,
+    ContactUsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, OtpService],
+  providers: [
+    AppService,
+    OtpService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+  ],
 })
 export class AppModule {}

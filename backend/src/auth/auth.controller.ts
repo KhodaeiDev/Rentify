@@ -10,7 +10,9 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Public } from './decorators/public.decorator';
 
+@Public()
 @ApiTags('Auth🔒')
 @Controller('auth')
 export class AuthController {
