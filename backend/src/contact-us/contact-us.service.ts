@@ -11,8 +11,8 @@ export class ContactUsService {
     private readonly contactRepo: Repository<ContactUs>,
   ) {}
 
-  async create(createContactUsDto: CreateContactUsDto) {
+  async create(createContactUsDto: CreateContactUsDto): Promise<void> {
     const createContact = this.contactRepo.create(createContactUsDto);
-    return await this.contactRepo.save(createContact);
+    await this.contactRepo.save(createContact);
   }
 }
