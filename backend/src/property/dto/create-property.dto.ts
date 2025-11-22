@@ -20,7 +20,7 @@ export class CreatePropertyDto {
   @IsOptional() @IsString() description?: string;
 
   //  نوع ملک و نوع واحد
-  @IsEnum(PropertyEnum) PropertyType: PropertyEnum;
+  @IsEnum(PropertyEnum) type: PropertyEnum;
 
   @IsEnum(UnitType)
   unitType: UnitType;

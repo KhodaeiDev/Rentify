@@ -9,7 +9,7 @@ import {
 import { PropertyEnum } from '../enums/property-enum';
 
 export class PropertyFilterDto {
-  @IsEnum(PropertyEnum) @IsOptional() @IsString() propertyType?: PropertyEnum;
+  @IsEnum(PropertyEnum) @IsOptional() @IsString() type?: PropertyEnum;
 
   @IsOptional() @IsString() city?: string;
   @IsOptional() @IsString() area?: string;

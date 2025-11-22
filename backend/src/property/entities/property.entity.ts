@@ -17,8 +17,8 @@ import { OrientationEnum } from '../enums/orientation-enum';
 @Index(['city'])
 @Index(['rent'])
 export class Property {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   // عددی یونیک قابل نمایش به کاربر (مثال: 5443)
   @Column({ type: 'int', unique: true })
@@ -31,7 +31,7 @@ export class Property {
   description?: string;
 
   @Column({ type: 'enum', enum: PropertyEnum, default: PropertyEnum.APARTMENT })
-  PropertyType: PropertyEnum; // نوع ملک ( ویلایی اپارتمان تجاری و.. )
+  type: PropertyEnum; // نوع ملک ( ویلایی اپارتمان تجاری و.. )
 
   @Column({ type: 'enum', enum: UnitType, nullable: true })
   unitType: UnitType; // نوع واحد (دوبلکس فول و ....)
