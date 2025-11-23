@@ -19,12 +19,12 @@ function Error404() {
         />
 
         
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">
+        <h1 className="text-2xl font-bold text-neutral mb-3">
           صفحه‌ی مورد نظر یافت نشد!
         </h1>
 
      
-        <p className="text-gray-600 mb-8">
+        <p className="text-neutral-tint-3 mb-8">
           این صفحه در رنتی‌فای یافت نشد. لطفاً به صفحه‌ اصلی مراجعه کنید تا ملک مورد نظر خود را پیدا کنید.
         </p>
 
