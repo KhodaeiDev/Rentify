@@ -19,7 +19,7 @@ export class UsersController {
 
   @Get('/me')
   async getUSer(@Req() req: Request) {
-    const { userId } = req.user;
+    const userId = req.user?.userId;
     if (!userId) {
       throw new BadRequestException('کاربر شناسایی نشد!');
     }

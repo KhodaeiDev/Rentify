@@ -5,7 +5,6 @@ import {
   IsEnum,
   IsNumber,
   IsArray,
-  ArrayNotEmpty,
   IsNotEmpty,
 } from 'class-validator';
 import { PropertyEnum } from '../enums/property-enum';
@@ -58,11 +57,6 @@ export class CreatePropertyDto {
   // رهن اجاره
   @IsNumber() rent: number;
   @IsNumber() deposit: number;
-
-  //  تصاویر
-  @IsNotEmpty()
-  @IsArray()
-  images: string[];
 
   @IsOptional() @IsArray() amenities?: string[];
 }
