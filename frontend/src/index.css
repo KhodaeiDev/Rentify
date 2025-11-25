@@ -3,17 +3,10 @@
 
 @font-face {
   font-family: "Vazirmatn";
-  src: url("/public/fonts/webFonts/Vazirmatn[wght].woff2")
-      format("woff2 supports variations"),
-    url("/public/fonts/webFonts/Vazirmatn[wght].woff2")
-      format("woff2-variations");
+  src: url("/fonts/webFonts/Vazirmatn[wght].woff2") format("woff2-variations");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-}
-
-:root {
-  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -51,8 +44,13 @@
   --leading-heading: 140%;
   --leading-display: 120%;
   --leading-body: 160%;
+  --leading-btn-lg: 140%;
+  --leading-btn-md: 130%;
+  --leading-caption: 150%;
   --font-weight-bold: 700;
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-light: 300;
 
   --color-primary-tint-6: #e7f1ff;
   --color-primary-tint-5: #cfe2ff;
@@ -92,6 +90,7 @@
   --color-warning-light: #f4b740;
 }
 
+/* JUST USE FOR GUIDNACE */
 @layer components {
   .display-1 {
     font-family: var(--font-sans);
@@ -266,7 +265,7 @@
   }
 
   .scroll-area {
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

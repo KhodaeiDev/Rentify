@@ -11,7 +11,7 @@ export default function TopWeek() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-6 gap-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
         <div className="flex flex-col bg-white overflow-hidden rounded-xl">
           <div className="relative overflow-hidden rounded-t-xl">
             <img
