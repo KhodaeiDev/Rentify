@@ -12,6 +12,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RoleGuard } from './auth/guards/role.guard';
 import { ContactUsModule } from './contact-us/contact-us.module';
+import { PropertyModule } from './property/property.module';
+import { LiaraStorageModule } from './liara-storage/liara-storage.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { ContactUsModule } from './contact-us/contact-us.module';
     SmsModule,
     AuthModule,
     ContactUsModule,
+    PropertyModule,
+    LiaraStorageModule,
   ],
   controllers: [AppController],
   providers: [
