@@ -1,6 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3';
 import * as path from 'path';
+import { LiaraStorageResponseTypes } from 'src/types/liaraStorage-response.type';
 @Injectable()
 export class LiaraStorageService {
   private client: S3Client;
@@ -34,5 +39,20 @@ export class LiaraStorageService {
       url: `${process.env.LIARA_ENDPOINT}/${process.env.LIARA_BUCKET_NAME}/${key}`,
       key,
     };
+  }
+
+  async remove(file: LiaraStorageResponseTypes) {
+    const params = {
+      Bucket: process.env.LIARA_BUCKET_NAME,
+      Key: file.key,
+    };
+
+    try {
+      await this.client.send(new DeleteObjectCommand(params));
+    } catch (error) {
+      throw new BadRequestException(
+        'خطایی در هنگام به روز رسانی تصاویر به وجود آمده است',
+      );
+    }
   }
 }

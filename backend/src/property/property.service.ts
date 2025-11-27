@@ -32,7 +32,8 @@ export class PropertyService {
     const uploadedImages = [];
     for (const file of files) {
       const upload = await this.liaraStorage.upload(file);
-      uploadedImages.push(upload.url);
+
+      uploadedImages.push(upload);
     }
 
     const code = await this.generateUniqueCode();
@@ -110,8 +111,25 @@ export class PropertyService {
     if (prop.creator.id !== user.id)
       throw new ForbiddenException('شما اجازه ویرایش ین اگهی را ندارید');
 
+    let newUploadedImages = [];
+    if (files.length >= 1) {
+      for (const file of prop.images) {
+        await this.liaraStorage.remove(JSON.parse(file));
+      }
+
+      for (const file of files) {
+        const upload = await this.liaraStorage.upload(file);
+        newUploadedImages.push(upload);
+      }
+
+      prop.images = newUploadedImages;
+    }
+
     const updateProp = Object.assign(
-      { ...prop, status: AdStatusEnum.PENDING },
+      {
+        ...prop,
+        status: AdStatusEnum.PENDING,
+      },
       dto,
     );
     await this.propertyRepo.save(updateProp);
