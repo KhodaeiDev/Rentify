@@ -27,7 +27,6 @@ export class LiaraStorageService {
       Body: file.buffer,
       ContentType: file.mimetype,
     };
-    console.log(params);
 
     await this.client.send(new PutObjectCommand(params));
 

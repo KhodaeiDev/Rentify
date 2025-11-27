@@ -10,6 +10,7 @@ import {
 import { PropertyEnum } from '../enums/property-enum';
 import { UnitType } from '../enums/unitType-enum';
 import { OrientationEnum } from '../enums/orientation-enum';
+import { Transform, Type } from 'class-transformer';
 
 export class CreatePropertyDto {
   // تایتل ملک
@@ -30,8 +31,8 @@ export class CreatePropertyDto {
   @IsString() address: string;
 
   //موقعیت مکانی (عرض و طول جغرافیایی)
-  @IsOptional() @IsNumber() lat?: number;
-  @IsOptional() @IsNumber() lng?: number;
+  @IsOptional() @IsNumber() @Type(() => Number) lat?: number;
+  @IsOptional() @IsNumber() @Type(() => Number) lng?: number;
 
   //موقعیت جغرافیایی
 
@@ -39,24 +40,27 @@ export class CreatePropertyDto {
   orientation: OrientationEnum;
 
   //زیر بنا و مساحت کل
-  @IsNumber() builtArea: number;
-  @IsNumber() landArea: number;
+  @IsNumber() @Type(() => Number) builtArea: number;
+  @IsNumber() @Type(() => Number) landArea: number;
 
   //سال ساخت
 
   @IsNumber()
+  @Type(() => Number)
   builtYear: number;
 
   // مجموع طبقات و طبقه خانه
-  @IsNumber() totalFloors: number;
-  @IsNumber() floorNumber: number;
+  @IsNumber() @Type(() => Number) totalFloors: number;
+  @IsNumber() @Type(() => Number) floorNumber: number;
 
   //خواب
-  @IsNumber() rooms: number;
+  @IsNumber() @Type(() => Number) rooms: number;
 
   // رهن اجاره
-  @IsNumber() rent: number;
-  @IsNumber() deposit: number;
+  @IsNumber() @Type(() => Number) rent: number;
+  @IsNumber() @Type(() => Number) deposit: number;
 
-  @IsOptional() @IsArray() amenities?: string[];
+  @IsOptional()
+  @IsArray()
+  amenities?: string[];
 }

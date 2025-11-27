@@ -11,6 +11,7 @@ import { User } from '../../users/entities/user.entity';
 import { PropertyEnum } from '../enums/property-enum';
 import { UnitType } from '../enums/unitType-enum';
 import { OrientationEnum } from '../enums/orientation-enum';
+import { AdStatusEnum } from '../enums/propStatus-enum';
 
 @Entity('properties')
 @Index(['code'], { unique: true })
@@ -88,8 +89,8 @@ export class Property {
   @ManyToOne(() => User, (u) => u.properties, { eager: true })
   creator: User;
 
-  @Column({ default: true })
-  isPublished: boolean;
+  @Column({ type: 'enum', enum: AdStatusEnum, default: AdStatusEnum.PENDING })
+  status: AdStatusEnum;
 
   @CreateDateColumn()
   createdAt: Date;
