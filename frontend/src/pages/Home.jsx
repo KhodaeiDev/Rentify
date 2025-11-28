@@ -1,8 +1,10 @@
-import Description from "../components/Home/Description";
-import SearchFilter from "../components/Home/SearchFilter";
-import TopWeek from "../components/Home/TopWeek";
+import {
+  Description,
+  SearchFilter,
+  Services,
+  TopWeek,
+} from "../components/Home";
 import Footer from "./../components/Footer";
-import Services from "./../components/Home/Services";
 import Navbar from "./../components/Navbar";
 
 export default function Home() {
