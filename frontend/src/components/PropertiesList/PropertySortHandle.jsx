@@ -11,7 +11,7 @@ export default function PropertySortHandel({ value, onValueChange }) {
     <Tabs.Root
       value={value || "latest"}
       onValueChange={onValueChange}
-      className="mb-10"
+      className="mb-8"
     >
       <Tabs.List className="relative flex justify-end gap-x-6 text-btn-xlg text-neutral-tint-2">
         {sortOptions.map((option) => {

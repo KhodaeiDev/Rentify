@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import {
   PropertyCard,
   PropertyFilter,
+  PropertySimilarSearchs,
   PropertySort,
 } from "../components/PropertiesList";
 import Footer from "./../components/Footer";
@@ -17,6 +18,7 @@ export default function PropertiesList() {
       <PropertyFilter />
       <PropertySort />
       <PropertyCard />
+      <PropertySimilarSearchs/>
 
       {/* <Footer /> */}
     </div>

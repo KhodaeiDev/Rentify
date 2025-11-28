@@ -53,7 +53,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -112,7 +112,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -171,7 +171,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -232,7 +232,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -293,7 +293,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -354,7 +354,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -415,7 +415,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
@@ -476,7 +476,7 @@ export default function TopWeek() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg">
+            <div className="flex justify-between items-center text-body-3xs bg-neutral-tint-6 rounded-lg gap-x-0.5">
               <div className="flex my-1 mr-1">
                 <p className="py-1 pl-1">رهن</p>
                 <div className="flex justify-center items-center bg-white rounded-md p-1 gap-0.5">
