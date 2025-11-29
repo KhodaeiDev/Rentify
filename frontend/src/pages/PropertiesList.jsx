@@ -3,6 +3,7 @@ import {
   PropertyCard,
   PropertyFilter,
   PropertySimilarSearchs,
+  PropertySimilarSearchsCards,
   PropertySort,
 } from "../components/PropertiesList";
 import Footer from "./../components/Footer";
@@ -18,9 +19,9 @@ export default function PropertiesList() {
       <PropertyFilter />
       <PropertySort />
       <PropertyCard />
-      <PropertySimilarSearchs/>
-
-      {/* <Footer /> */}
+      <PropertySimilarSearchs />
+      <PropertySimilarSearchsCards />
+      <Footer />
     </div>
   );
 }

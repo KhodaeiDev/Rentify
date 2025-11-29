@@ -1,6 +1,6 @@
 export default function PropertySimilarSearchs() {
   return (
-    <div className="relative h-18 w-full px-28 bg-white py-6">
+    <div className="relative w-full px-28 bg-white py-6 mb-6">
       <p className="mb-4 heading-h6">جستجوهای مشابه</p>
       <div className="">
         <div className="flex flex-row flex-nowrap gap-x-2 overflow-x-auto snap-x scroll-area">
