@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { assets } from "../assetsa/assets";
 
 const SignUp = () => {
@@ -16,6 +16,9 @@ const SignUp = () => {
 
   const codeRefs = useRef([]);
 
+  const REGISTER_START_URL = "/auth/register/start";
+  const REGISTER_VERIFY_URL = "/auth/register/verify";
+
   // ---------- Form Validation ----------
   const isFormValid =
     name.trim().length > 1 &&
@@ -27,21 +30,18 @@ const SignUp = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(
-        "https://rentify-nqd6.onrender.com/auth/register-start",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            first_name: name,
-            last_name: family,
-            phone: phone,
-            acceptedTerms: true,
-            role: "user",
-            officeName: "Iran Amlak",
-          }),
-        }
-      );
+      const response = await fetch(REGISTER_START_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: name,
+          last_name: family,
+          phone: phone,
+          acceptedTerms: true,
+          role: "user",
+          officeName: "Iran Amlak",
+        }),
+      });
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "خطا در ثبت‌نام");
@@ -63,20 +63,17 @@ const SignUp = () => {
     setVerifyError("");
 
     try {
-      const response = await fetch(
-        "https://rentify-nqd6.onrender.com/auth/register-verify",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone, code: codeStr }),
-        }
-      );
+      const response = await fetch(REGISTER_VERIFY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, code: codeStr }),
+      });
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "خطا در تایید کد");
 
       console.log("تایید موفق:", data);
-      alert("ورود موفق!"); 
+      alert("ورود موفق!");
     } catch (err) {
       setVerifyError(err.message);
     } finally {
@@ -100,11 +97,7 @@ const SignUp = () => {
     <div className="w-full h-screen flex flex-row" dir="ltr">
       {/* Left Image */}
       <div className="hidden md:flex w-1/2 bg-[#e9f0ff] items-center justify-center">
-        <img
-          src={assets.login}
-          alt="login"
-          className="w-[80%] max-w-[550px]"
-        />
+        <img src={assets.login} alt="login" className="w-[80%] max-w-[550px]" />
       </div>
 
       {/* Right Form */}
@@ -162,9 +155,7 @@ const SignUp = () => {
                   />
                 </div>
 
-                {error && (
-                  <p className="text-red-500 text-sm">{error}</p>
-                )}
+                {error && <p className="text-red-500 text-sm">{error}</p>}
 
                 <button
                   type="submit"
@@ -187,8 +178,8 @@ const SignUp = () => {
               <h1 className="text-3xl font-bold mb-4">Rentify</h1>
               <p className="text-xl font-bold mb-2">کد تأیید</p>
               <p className="text-gray-600 mb-3">
-                کد ارسال شده به شماره{" "}
-                <span className="font-bold">{phone}</span> را وارد کنید
+                کد ارسال شده به شماره <span className="font-bold">{phone}</span>{" "}
+                را وارد کنید
               </p>
 
               <button
