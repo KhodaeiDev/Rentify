@@ -1,16 +1,6 @@
-export default function TopWeek() {
+export default function PropertyCard() {
   return (
-    <div className="mx-4 md:mx-28 mb-16">
-      <div className="flex justify-between items-center gap-y-2 mb-2">
-        <p className="text-black md:heading-h3 heading-h6 cursor-default">
-          پر بازدید ترین‌های هفته‌ی گذشته
-        </p>
-        <div className="flex gap-x-0.5 ml-4 cursor-pointer">
-          <p className="text-btn-s text-primary">مشاهده همه</p>
-          <img src="/src/assets/icons/left-arrow-2.svg" />
-        </div>
-      </div>
-
+    <div className="mx-14 md:mx-28 mb-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
         <div className="flex flex-col bg-white overflow-hidden rounded-xl">
           <div className="relative overflow-hidden rounded-t-xl">
