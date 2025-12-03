@@ -22,7 +22,7 @@ async function bootstrap() {
     })
     .build();
 
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  const documentFactory = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('docs', app, documentFactory);
 
