@@ -51,7 +51,7 @@ export class PropertyService {
   async search(filter: PropertyFilterDto) {
     const qb = this.propertyRepo.createQueryBuilder('p');
 
-    qb.where('p.isPublished = :published', { published: true });
+    qb.where('p.status = :status', { status: AdStatusEnum.APPROVED });
 
     if (filter.type) qb.andWhere('p.type = :type', { type: filter.type });
     if (filter.city)

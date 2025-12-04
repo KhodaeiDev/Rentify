@@ -33,4 +33,14 @@ export class UsersController {
     const updateUser = await this.userService.updateUser(updateUserDto, userId);
     return { user: updateUser };
   }
+
+  @Get('/my-property')
+  async getUserProperty(@Req() req: Request) {
+    const userId = req.user?.userId;
+    if (!userId) {
+      throw new BadRequestException('کاربر شناسایی نشد!');
+    }
+    const properties = await this.userService.getUserPropertyData(userId);
+    return properties;
+  }
 }
