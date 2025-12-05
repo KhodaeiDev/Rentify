@@ -1,15 +1,25 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserRoleEnum } from './enums/userRole-enum';
+import { PropertyService } from 'src/property/property.service';
+import { Property } from 'src/property/entities/property.entity';
 
 @Injectable()
 export class UsersService {
-  @InjectRepository(User)
-  private readonly userRepository: Repository<User>;
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    @InjectRepository(Property)
+    private readonly propertyRepository: Repository<Property>,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const firstUser = await this.userRepository.count();
@@ -41,7 +51,7 @@ export class UsersService {
     const user = await this.userRepository.findOneBy({
       id,
     });
-    if (!user) throw new BadRequestException('کاربر مورد نظر یافت نشد');
+    if (!user) throw new NotFoundException('کاربر مورد نظر یافت نشد');
 
     return user;
   }
@@ -53,5 +63,15 @@ export class UsersService {
     await this.userRepository.save(updateUserInfo);
 
     return await this.findOneById(userId);
+  }
+
+  async getUserPropertyData(userId: number) {
+    const user = await this.findOneById(userId);
+
+    const properties = await this.propertyRepository.find({
+      where: { creator: { id: user.id } },
+    });
+
+    return properties;
   }
 }

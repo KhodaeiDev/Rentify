@@ -11,6 +11,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Public } from './decorators/public.decorator';
+import { AuthResponseDto } from './dto/auth-response.dto';
 
 @Public()
 @ApiTags('Auth🔒')
@@ -33,13 +34,7 @@ export class AuthController {
   })
   @ApiCreatedResponse({
     description: 'ثبت نام با موفقیت انجام شد',
-    example: {
-      accessToken: 'JWT Token',
-      user: {
-        first_name: 'test',
-        phone: '09141574097',
-      },
-    },
+    type: AuthResponseDto,
   })
   @Post('register/verify')
   async verifyUser(@Body() verifyOtpDto: VerifyOtpDto) {
@@ -60,13 +55,7 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'ثبت نام با موفقیت انجام شد',
-    example: {
-      accessToken: 'JWT Token',
-      user: {
-        first_name: 'test',
-        phone: '09141574097',
-      },
-    },
+    type: AuthResponseDto,
   })
   @Post('login/verify')
   async verifyLoginOtp(@Body() verifyOtpDto: VerifyOtpDto) {
