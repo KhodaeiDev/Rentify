@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -82,10 +83,11 @@ export class PropertyService {
     else qb.orderBy('p.createdAt', 'DESC');
 
     const page = filter.page || 1;
-    const limit = Math.min(filter.limit || 20, 100);
+    const limit = Math.min(filter.limit || 10, 100);
     qb.skip((page - 1) * limit).take(limit);
 
     const [items, total] = await qb.getManyAndCount();
+
     return { items, total, page, limit };
   }
 
@@ -96,7 +98,7 @@ export class PropertyService {
     if (!property) {
       throw new NotFoundException('اگهی مورد نظر پیدا نشد');
     }
-    return { property };
+    return { massage: 'آگهی با موفقیت دریافت شد', property };
   }
 
   async update(
@@ -106,7 +108,12 @@ export class PropertyService {
     files: Express.Multer.File[],
   ) {
     const user = await this.userService.findOneById(userId);
-    const prop = await this.propertyRepo.findOne({ where: { id } });
+    const prop = await this.propertyRepo.findOne({
+      where: { id },
+      relations: ['creator'],
+    });
+
+    if (!prop) throw new BadRequestException('آگهی مورد نظر شما پیدا نشد');
 
     if (prop.creator.id !== user.id)
       throw new ForbiddenException('شما اجازه ویرایش ین اگهی را ندارید');
@@ -121,17 +128,21 @@ export class PropertyService {
         const upload = await this.liaraStorage.upload(file);
         newUploadedImages.push(upload);
       }
+    }
 
-      prop.images = newUploadedImages;
+    if (dto.images === '' || dto.images === undefined || dto.images === null) {
+      delete dto.images;
     }
 
     const updateProp = Object.assign(
       {
         ...prop,
         status: AdStatusEnum.PENDING,
+        images: newUploadedImages.length ? newUploadedImages : prop.images,
       },
       dto,
     );
+
     await this.propertyRepo.save(updateProp);
 
     return {

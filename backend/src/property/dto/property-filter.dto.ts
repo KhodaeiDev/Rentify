@@ -7,6 +7,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { PropertyEnum } from '../enums/property-enum';
+import { Transform } from 'class-transformer';
 
 export class PropertyFilterDto {
   @IsEnum(PropertyEnum) @IsOptional() @IsString() type?: PropertyEnum;
@@ -14,20 +15,88 @@ export class PropertyFilterDto {
   @IsOptional() @IsString() city?: string;
   @IsOptional() @IsString() area?: string;
 
-  @IsOptional() minDeposit?: number;
-  @IsOptional() maxDeposit?: number;
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  minDeposit?: number;
 
-  @IsOptional() minRent?: number;
-  @IsOptional() maxRent?: number;
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  maxDeposit?: number;
 
-  @IsOptional() minArea?: number;
-  @IsOptional() maxArea?: number;
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  minRent?: number;
 
-  @IsOptional() rooms?: number;
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  maxRent?: number;
 
-  @IsOptional() @IsArray() amenities?: string[]; // مثل ['pool','gym']
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  minArea?: number;
 
-  @IsOptional() page?: number;
-  @IsOptional() limit?: number;
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  maxArea?: number;
+
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  rooms?: number;
+
+  @IsOptional()
+  @IsArray()
+  @Transform(({ value }) => {
+    if (Array.isArray(value)) return value;
+
+    // اگر JSON بود → ["x","y","z"]
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {}
+
+    // اگر "x,y,z" بود
+    if (typeof value === 'string') {
+      return value.split(',').map((item) => item.trim());
+    }
+
+    return [];
+  })
+  amenities?: string[]; // مثل ['pool','gym']
+
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  page?: number;
+
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @IsNumber()
+  @IsOptional()
+  limit?: number;
+
   @IsOptional() sort?: 'newest' | 'price_asc' | 'price_desc';
 }

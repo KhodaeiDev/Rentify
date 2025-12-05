@@ -61,6 +61,25 @@ export class CreatePropertyDto {
   @IsNumber() @Type(() => Number) deposit: number;
 
   @IsOptional()
+  images?: any;
+
+  @IsOptional()
   @IsArray()
+  @Transform(({ value }) => {
+    if (Array.isArray(value)) return value;
+
+    // اگر JSON بود → ["x","y","z"]
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {}
+
+    // اگر "x,y,z" بود
+    if (typeof value === 'string') {
+      return value.split(',').map((item) => item.trim());
+    }
+
+    return [];
+  })
   amenities?: string[];
 }
