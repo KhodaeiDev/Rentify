@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 import { UserRoleEnum } from './enums/userRole-enum';
 import { PropertyService } from 'src/property/property.service';
 import { Property } from 'src/property/entities/property.entity';
+import { GetPropertyParamDto } from 'src/property/dto/GetPropertyParam.dto';
 
 @Injectable()
 export class UsersService {
@@ -48,8 +49,9 @@ export class UsersService {
   }
 
   async findOneById(id: number) {
-    const user = await this.userRepository.findOneBy({
-      id,
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['saveProperties'],
     });
     if (!user) throw new NotFoundException('کاربر مورد نظر یافت نشد');
 
@@ -73,5 +75,27 @@ export class UsersService {
     });
 
     return properties;
+  }
+
+  async save({ code }: GetPropertyParamDto, userId: number) {
+    const property = await this.propertyRepository.findOne({
+      where: { code },
+    });
+    if (!property) throw new NotFoundException('آگهی مورد نظر پیدا نشد');
+
+    const user = await this.findOneById(userId);
+    const propertyIndex = user.saveProperties.findIndex(
+      (propert) => propert.code === code,
+    );
+
+    let statusCode = 201;
+    if (propertyIndex > -1) {
+      user.saveProperties.splice(propertyIndex, 1);
+      statusCode = 200;
+    } else {
+      user.saveProperties.push(property);
+    }
+
+    return await this.userRepository.save(user);
   }
 }

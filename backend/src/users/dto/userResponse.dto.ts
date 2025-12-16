@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRoleEnum } from '../enums/userRole-enum';
+import { Property } from 'src/property/entities/property.entity';
 
 export class UserResponseDto {
   @ApiProperty()
@@ -16,4 +17,7 @@ export class UserResponseDto {
 
   @ApiProperty()
   role: UserRoleEnum;
+
+  @ApiProperty()
+  saveProperties?: Property[];
 }
