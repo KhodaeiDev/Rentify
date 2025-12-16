@@ -3,7 +3,9 @@ import {
   Controller,
   Get,
   NotFoundException,
+  Param,
   Patch,
+  Post,
   Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -17,6 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { UserResponseDto } from './dto/userResponse.dto';
 import { PropertyResponseDto } from 'src/property/dto/property-response.dto';
+import { GetPropertyParamDto } from 'src/property/dto/GetPropertyParam.dto';
 
 @ApiBearerAuth()
 @ApiTags('Users👥')
@@ -56,5 +59,15 @@ export class UsersController {
     }
     const properties = await this.userService.getUserPropertyData(userId);
     return properties;
+  }
+
+  @ApiBearerAuth()
+  @Post('adSave/:code')
+  async saveProperty(@Param() code: GetPropertyParamDto, @Req() req: Request) {
+    const userId = req.user?.userId;
+    if (!userId) {
+      throw new NotFoundException('کاربر شناسایی نشد!');
+    }
+    return await this.userService.save(code, userId);
   }
 }

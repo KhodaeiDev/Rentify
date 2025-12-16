@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { LiaraStorageService } from 'src/liara-storage/liara-storage.service';
 import { AdStatusEnum } from './enums/propStatus-enum';
+import { GetPropertyParamDto } from './dto/GetPropertyParam.dto';
 
 @Injectable()
 export class PropertyService {
@@ -98,7 +99,7 @@ export class PropertyService {
     if (!property) {
       throw new NotFoundException('اگهی مورد نظر پیدا نشد');
     }
-    return { massage: 'آگهی با موفقیت دریافت شد', property };
+    return property;
   }
 
   async update(

@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
   OneToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { UserRoleEnum } from '../enums/userRole-enum';
 import { Property } from 'src/property/entities/property.entity';
@@ -44,6 +46,20 @@ export class User {
 
   @OneToMany(() => Property, (p) => p.creator)
   properties: Property[];
+
+  @ManyToMany(() => Property, (property) => property.savedBy)
+  @JoinTable({
+    name: 'user_save_property',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'property_id',
+      referencedColumnName: 'id',
+    },
+  })
+  saveProperties?: Property[];
 
   @CreateDateColumn()
   createdAt: Date;

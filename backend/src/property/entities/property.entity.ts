@@ -6,6 +6,7 @@ import {
   Index,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { PropertyEnum } from '../enums/property-enum';
@@ -88,6 +89,9 @@ export class Property {
 
   @ManyToOne(() => User, (u) => u.properties, { eager: true })
   creator: User;
+
+  @ManyToMany(() => User, (user) => user.saveProperties)
+  savedBy?: User[];
 
   @Column({ type: 'enum', enum: AdStatusEnum, default: AdStatusEnum.PENDING })
   status: AdStatusEnum;
