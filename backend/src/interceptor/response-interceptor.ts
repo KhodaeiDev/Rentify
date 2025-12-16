@@ -31,7 +31,7 @@ export class ResponseInterceptor<T>
     return next.handle().pipe(
       map((data) => ({
         success: true,
-        statusCode: response.statusCode,
+        statusCode: data?.statusCode ?? response.statusCode,
         path: request.url,
         method: request.method,
         timestamp: new Date().toISOString(),

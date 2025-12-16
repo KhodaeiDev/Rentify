@@ -81,16 +81,21 @@ export class UsersService {
     const property = await this.propertyRepository.findOne({
       where: { code },
     });
-    if (!property) throw new BadRequestException('آگهی مورد نظر پیدا نشد');
+    if (!property) throw new NotFoundException('آگهی مورد نظر پیدا نشد');
 
     const user = await this.findOneById(userId);
     const propertyIndex = user.saveProperties.findIndex(
       (propert) => propert.code === code,
     );
 
-    if (propertyIndex > -1) user.saveProperties.splice(propertyIndex, 1);
-    else user.saveProperties.push(property);
+    let statusCode = 201;
+    if (propertyIndex > -1) {
+      user.saveProperties.splice(propertyIndex, 1);
+      statusCode = 200;
+    } else {
+      user.saveProperties.push(property);
+    }
 
-    await this.userRepository.save(user);
+    return await this.userRepository.save(user);
   }
 }

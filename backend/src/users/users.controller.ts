@@ -13,8 +13,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request } from 'express';
 import {
   ApiBearerAuth,
+  ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { UserResponseDto } from './dto/userResponse.dto';
@@ -62,6 +64,12 @@ export class UsersController {
   }
 
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'افزودن یا حذف اگهی از اگهی های ذخیره شده کاربر' })
+  @ApiCreatedResponse({
+    description: 'عملیات با موفقیت انجام شد',
+    type: UserResponseDto,
+  })
+  @ApiNotFoundResponse({ description: 'کاربر یا اگهی مورد نظر پیدا نشد' })
   @Post('adSave/:code')
   async saveProperty(@Param() code: GetPropertyParamDto, @Req() req: Request) {
     const userId = req.user?.userId;
