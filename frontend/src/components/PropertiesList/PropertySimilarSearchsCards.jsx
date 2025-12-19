@@ -487,7 +487,7 @@ export default function PropertySimilarSearchsCards() {
         </div>
       </div>
 
-      <button className="flex mx-auto py-3 px-4 bg-primary rounded-lg text-white mt-10">
+      <button className="flex mx-auto py-3 px-4 bg-primary rounded-lg text-white mt-10 cursor-pointer">
         نمایش آگهی‌های بیشتر
       </button>
     </div>
