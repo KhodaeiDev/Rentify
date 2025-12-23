@@ -10,7 +10,7 @@ const Navbar = ({ textColor = 'text-white' }) => {
   }, [showMobileMenu]);
 
   return (
-    <div className="absolute top-0 left-0 w-full z-50">
+    <div className="absolute top-0 left-0 w-full z-10">
       <div className="container mx-auto flex items-center justify-between py-3 px-4 md:px-8 lg:px-20">
 
         {/* Logo */}
