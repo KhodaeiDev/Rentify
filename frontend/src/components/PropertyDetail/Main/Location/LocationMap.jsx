@@ -1,10 +1,11 @@
-import { latLng } from "leaflet";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
-export default function LocationMap() {
+export default function LocationMap({ lat, lng }) {
+  const center = [Number(lat), Number(lng)];
+
   return (
     <MapContainer
-      center={[latLng]}
+      center={center}
       zoom={14}
       className="h-64 w-full rounded-xl"
       scrollWheelZoom={false}
@@ -12,9 +13,8 @@ export default function LocationMap() {
       <TileLayer
         attribution="&copy; OpenStreetMap"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      >
-        <Marker position={[latLng]} />
-      </TileLayer>
+      />
+      <Marker position={center} />
     </MapContainer>
   );
 }

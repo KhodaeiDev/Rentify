@@ -1,14 +1,17 @@
 import { IoCallOutline } from "react-icons/io5";
 import { TbMessages } from "react-icons/tb";
 
-export default function OwnerSummaryCard() {
+export default function OwnerSummaryCard({ owner }) {
+  const name = owner?.name ?? owner?.fullName ?? "علی میرحسینی";
+  const agency = owner?.agency ?? owner?.company ?? "املاک مبین";
+
   return (
     <div className="p-6 border border-neutral-tint-4 rounded-xl">
       <div className="mt-6 flex justify-center items-center gap-x-3 mb-10">
         <img src="/src/assets/icons/user.svg" alt="user-icon" />
         <div>
-          <p className="heading-h6 text-neutral-tint-1">علی میرحسینی</p>
-          <p className="text-body-1xs text-neutral-tint-3">املاک مبین</p>
+          <p className="heading-h6 text-neutral-tint-1">{name}</p>
+          <p className="text-body-1xs text-neutral-tint-3">{agency}</p>
         </div>
       </div>
       <div className="flex justify-around items-center gap-x-2 mb-2">
