@@ -17,7 +17,6 @@ export default function PropertyTabs() {
   const handleChange = (val) => {
     setValue(val);
 
-    // هنگام اسکرول نرمِ کلیکی، observer رو موقتاً بی‌اثر می‌کنیم
     isClickScrollingRef.current = true;
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     clickTimerRef.current = setTimeout(() => {
@@ -48,7 +47,6 @@ export default function PropertyTabs() {
         const visible = entries.filter((e) => e.isIntersecting);
         if (!visible.length) return;
 
-        // بیشترین بخشِ قابل‌مشاهده = تب فعال
         visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         const id = visible[0].target.id;
 
@@ -58,7 +56,6 @@ export default function PropertyTabs() {
         setValue((prev) => (prev === match.value ? prev : match.value));
       },
       {
-        // این اعداد برای sticky navbar + sticky tabs هستند
         root: null,
         threshold: [0.15, 0.25, 0.4, 0.6],
         rootMargin: "-120px 0px -55% 0px",

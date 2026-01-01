@@ -12,12 +12,10 @@ function getItemId(item) {
 }
 
 function getTypeLabel(item) {
-  // backend fields: type, unitType
   return item?.unitType ?? item?.type ?? "ملک";
 }
 
 function getBadgeClass(label) {
-  // فقط برای تنوع ظاهری؛ بدون refactor UI
   if (label?.includes("آپارتمان")) return "bg-success";
   if (label?.includes("ویلا")) return "bg-primary-shade-2";
   return "bg-amber-600";
@@ -26,11 +24,8 @@ function getBadgeClass(label) {
 export default function PropertyCard({ items }) {
   const hasItems = Array.isArray(items) && items.length > 0;
 
-  // اگر items از API داده شده ولی خالیه، اینجا چیزی نشون نمی‌دیم
-  // (Empty state رو خود PropertiesList.jsx نشون می‌ده)
   if (Array.isArray(items) && !hasItems) return null;
 
-  // اگر جایی بدون props استفاده شد، رفتار قدیمی رو حفظ کن (استاتیک)
   const dataToRender = hasItems ? items : [
     {
       id: "demo-1",
@@ -161,7 +156,6 @@ export default function PropertyCard({ items }) {
             </div>
           );
 
-          // اگر آیتم ID نداشت، مثل یک کارت معمولی بدون لینک می‌مونه
           if (!id || String(id).startsWith("demo-")) {
             return <div key={id ?? idx}>{CardInner}</div>;
           }

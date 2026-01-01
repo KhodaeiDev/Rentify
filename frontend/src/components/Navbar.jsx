@@ -16,7 +16,6 @@ const Navbar = ({ textColor = "text-white" }) => {
   // مسیرهای واقعی پروژه‌ات
   const NAV_ITEMS = [
     { to: "/property", label: "رهن و اجاره" },
-    // فعلاً route نداری، پس یا حذفش کن یا به صفحه placeholder ببَر
     // { to: "/consultants", label: "مشاورین املاک" },
     // { to: "/blog", label: "بلاگ رنتی فای" },
     { to: "/aboutus", label: "درباره ما" },
@@ -59,7 +58,6 @@ const Navbar = ({ textColor = "text-white" }) => {
             ورود / ثبت نام
           </Link>
 
-          {/* چون route ثبت آگهی هنوز نداری، فعلاً به /property می‌بریم */}
           <Link
             to="/property"
             className="bg-primary-tint-1 text-white px-4 py-1.5 rounded-full text-xs lg:text-base cursor-pointer"
