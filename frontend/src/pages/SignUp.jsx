@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BiSolidBuildings } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { assets } from "../assetsa/assets";
 import { useRegisterStart } from "../hooks/useRegisterStart";
 import { useRegisterVerify } from "../hooks/useRegisterVerify";
@@ -24,6 +25,8 @@ const SignUp = () => {
   const REGISTER_START_URL = "/auth/register/start";
   const REGISTER_VERIFY_URL = "/auth/register/verify";
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setName("");
     setFamily("");
@@ -46,9 +49,8 @@ const SignUp = () => {
     isPending: loadingVerify,
     error: verifyError,
   } = useRegisterVerify(() => {
-    console.log("verfiy success");
-
     alert("ثبت نام و ورود موفق!");
+    navigate("/home", { replace: true });
   });
 
   const { mutate: startLogin } = useLoginStart(() => {
