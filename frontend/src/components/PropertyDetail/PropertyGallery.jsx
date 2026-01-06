@@ -12,7 +12,10 @@ const IMAGES = [
   "/src/assets/icons/Frame-2.svg",
 ];
 
-export default function PropertyGallery() {
+export default function PropertyGallery({ images }) {
+  const finalImages =
+    Array.isArray(images) && images.length ? images : IMAGES;
+
   return (
     <div>
       <section className="w-full bg-white">
@@ -25,17 +28,19 @@ export default function PropertyGallery() {
               nextEl: ".gallery-next",
               prevEl: ".gallery-prev",
             }}
-            loop
+            loop={finalImages.length > 3}
             dir="rtl"
             className="w-full rounded-l-xl rounded-r-xl"
           >
-            {IMAGES.map((src, index) => (
+            {finalImages.map((src, index) => (
               <SwiperSlide key={index}>
                 <div className="h-56 md:h-80 overflow-hidden">
                   <img
                     src={src}
-                    alt={`primary-${index}`}
+                    alt={`property-${index}`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </SwiperSlide>

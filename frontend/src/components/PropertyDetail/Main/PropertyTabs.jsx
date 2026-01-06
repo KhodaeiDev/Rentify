@@ -1,5 +1,5 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const PROPERTY_TABS = [
   { value: "main-info", label: "اطلاعات تکمیلی", target: "main-info" },
@@ -11,8 +11,17 @@ const PROPERTY_TABS = [
 export default function PropertyTabs() {
   const [value, setValue] = useState("main-info");
 
+  const isClickScrollingRef = useRef(false);
+  const clickTimerRef = useRef(null);
+
   const handleChange = (val) => {
     setValue(val);
+
+    isClickScrollingRef.current = true;
+    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+    clickTimerRef.current = setTimeout(() => {
+      isClickScrollingRef.current = false;
+    }, 800);
 
     const tab = PROPERTY_TABS.find((t) => t.value === val);
     if (!tab) return;
@@ -25,6 +34,41 @@ export default function PropertyTabs() {
       });
     }
   };
+
+  useEffect(() => {
+    const sections = PROPERTY_TABS.map((t) => document.getElementById(t.target)).filter(Boolean);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isClickScrollingRef.current) return;
+
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (!visible.length) return;
+
+        visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const id = visible[0].target.id;
+
+        const match = PROPERTY_TABS.find((t) => t.target === id);
+        if (!match) return;
+
+        setValue((prev) => (prev === match.value ? prev : match.value));
+      },
+      {
+        root: null,
+        threshold: [0.15, 0.25, 0.4, 0.6],
+        rootMargin: "-120px 0px -55% 0px",
+      }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+    };
+  }, []);
 
   return (
     <Tabs.Root value={value} onValueChange={handleChange} dir="rtl">

@@ -14,8 +14,8 @@ export default function AppRoutes() {
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route element={<Layout />}>
         <Route path="/home" element={<Home />} />
-        <Route path="/search" element={<PropertiesList />} />
-        <Route path="location/:id" element={<PropertyDetail />} />
+        <Route path="/property" element={<PropertiesList />} />
+        <Route path="/property/:id" element={<PropertyDetail />} />
         <Route path="/aboutus" element={<AboutUS />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

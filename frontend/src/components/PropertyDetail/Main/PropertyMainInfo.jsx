@@ -1,19 +1,39 @@
-import { AiOutlineThunderbolt } from "react-icons/ai";
-import { GrSwim } from "react-icons/gr";
-import { IoIosFitness } from "react-icons/io";
-import { LiaBasketballBallSolid } from "react-icons/lia";
-import { LuTrees } from "react-icons/lu";
-import { MdGrass } from "react-icons/md";
-import { PiSwimmingPool } from "react-icons/pi";
-import { WiDirectionLeft } from "react-icons/wi";
 import PropertyLocation from "./Location/PropertyLocation";
 import PropertyTabs from "./PropertyTabs";
 
-export default function PropertyMainInfo() {
+function fmt(n) {
+  if (n === null || n === undefined || Number.isNaN(Number(n))) return null;
+  return new Intl.NumberFormat("fa-IR").format(Number(n));
+}
+
+export default function PropertyMainInfo({ property }) {
+  const title = property?.title ?? "آپارتمان ۷۰ متری ۲ خوابه _ تهران مجیدیه";
+
+  const city = property?.city ?? "تهران";
+  const area = property?.area ?? "الهیه";
+
+  const rent = fmt(property?.rent);
+  const deposit = fmt(property?.deposit);
+
+  const idLabel = property?.id ?? property?._id ?? property?.code ?? "۵۴۳۶";
+
+  const amenities = Array.isArray(property?.amenities) ? property.amenities : [];
+
+  const builtArea = property?.builtArea ?? null;
+  const landArea = property?.landArea ?? null;
+  const rooms = property?.rooms ?? null;
+  const builtYear = property?.builtYear ?? null;
+  const totalFloors = property?.totalFloors ?? null;
+  const floorNumber = property?.floorNumber ?? null;
+  const orientation = property?.orientation ?? null;
+
+  const description = property?.description ?? null;
+
   return (
     <div className="bg-white pt-10">
       <div className="flex justify-between items-center">
-        <p className="text-body-md">آپارتمان ۷۰ متری ۲ خوابه _ تهران مجیدیه</p>
+        <p className="text-body-md">{title}</p>
+
         <div className="flex justify-center items-center gap-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,9 +84,13 @@ export default function PropertyMainInfo() {
               d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
             />
           </svg>
-          <p className="text-body-1xs">تهران-الهیه</p>
+          <p className="text-body-1xs">
+            {city}-{area}
+          </p>
         </div>
+
         <div className="border h-auto mx-5" />
+
         <div className="flex justify-center items-center gap-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,25 +112,19 @@ export default function PropertyMainInfo() {
 
       <div className="space-y-3 mb-6">
         <div className="flex justify-start items-center gap-1">
-          <p className="heading-h4">رهن ۴,۰۰۰,۰۰۰,۰۰۰</p>
-          <img
-            src="/src/assets/icons/toman.svg"
-            alt="تومان"
-            className="size-6"
-          />
+          <p className="heading-h4">رهن {deposit ?? "۴,۰۰۰,۰۰۰,۰۰۰"}</p>
+          <img src="/src/assets/icons/toman.svg" alt="تومان" className="size-6" />
         </div>
+
         <div className="flex justify-start items-center gap-1">
-          <p className="heading-h4">اجاره ۵۰,۰۰۰,۰۰۰</p>
-          <img
-            src="/src/assets/icons/toman.svg"
-            alt="تومان"
-            className="size-6"
-          />
+          <p className="heading-h4">اجاره {rent ?? "۵۰,۰۰۰,۰۰۰"}</p>
+          <img src="/src/assets/icons/toman.svg" alt="تومان" className="size-6" />
         </div>
       </div>
 
-      <div className="flex justify-between items-center border-t py-3 mb-16 border-b border-neutral-tint-3">
-        <p className="text-body-xs text-neutral-tint-2">شناسه آگهی: ۵۴۳۶</p>
+      <div className="flex justify-between items-center border-t py-3 mb-10 border-b border-neutral-tint-3">
+        <p className="text-body-xs text-neutral-tint-2">شناسه آگهی: {idLabel}</p>
+
         <div className="flex justify-center gap-1 text-body-xs text-neutral-tint-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +137,7 @@ export default function PropertyMainInfo() {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+              d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 24.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
             />
           </svg>
           <p>گزارش</p>
@@ -128,154 +146,108 @@ export default function PropertyMainInfo() {
 
       <div className="bg-white overflow-hidden">
         <PropertyTabs />
-        <div>
-          <section
-            id="main-info"
-            className="scroll-mt-28 py-8 border-b border-neutral-tint-3"
-          >
-            <div className="flex">
-              <p className="heading-h5 border-b-3 border-primary pb-4 mb-10">
-                اطلاعات تکمیلی
+
+        {/* ✅ SECTION: main-info */}
+        <section id="main-info" className="scroll-mt-32 py-8 border-b border-neutral-tint-3">
+          <div className="flex">
+            <p className="heading-h6 border-b-3 border-primary pb-3 mb-6">
+              اطلاعات تکمیلی
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 px-2">
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">مساحت زیربنا:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {builtArea ? `${fmt(builtArea)} متر` : "—"}
               </p>
             </div>
-            <div className="flex justify-between px-2">
-              <div className="space-y-8">
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">
-                    مساحت زیربنا:
-                  </p>
-                  <p className="text-body-s text-neutral-tint-1">۱۳۰ متر</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">خواب:</p>
-                  <p className="text-body-s text-neutral-tint-1">۲ خوابه</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">هر طبقه:</p>
-                  <p className="text-body-s text-neutral-tint-1">۱</p>
-                </div>
-              </div>
 
-              <div className="space-y-8">
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">
-                    مساحت زمین:
-                  </p>
-                  <p className="text-body-s text-neutral-tint-1">۴۰۰ متر</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">
-                    سرویس بهداشتی:
-                  </p>
-                  <p className="text-body-s text-neutral-tint-1">۳ عدد</p>
-                </div>
-              </div>
-
-              <div className="space-y-8">
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">طبقات:</p>
-                  <p className="text-body-s text-neutral-tint-1">۱۴</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-xs text-neutral-tint-2">طبقه</p>
-                  <p className="text-body-s text-neutral-tint-1">۱۲</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section
-            id="facilities"
-            className="scroll-mt-28 py-8 border-b border-neutral-tint-3"
-          >
-            <div className="flex">
-              <p className="heading-h5 border-b-3 border-primary pb-4 mb-10">
-                تجهیزات و امکانات
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">مساحت زمین:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {landArea ? `${fmt(landArea)} متر` : "—"}
               </p>
             </div>
-            <div className="flex justify-between px-2">
-              <div className="space-y-8">
-                <div className="flex items-center gap-x-2">
-                  <IoIosFitness className="size-6" />
-                  <p className="text-body-s text-neutral-tint-1">باشگاه</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <AiOutlineThunderbolt className="size-6" />
-                  <p className="text-body-s text-neutral-tint-1">برق اضطراری</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <MdGrass className="size-6" />
-                  <p className="text-body-s text-neutral-tint-1">روف گاردن</p>
-                </div>
-              </div>
 
-              <div className="space-y-8">
-                <div className="flex items-center gap-x-2">
-                  <LuTrees className="size-6" />
-                  <p className="text-body-s text-neutral-tint-1">فضای سبز</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <LiaBasketballBallSolid className="size-6" />
-                  <p className="text-body-s text-neutral-tint-1">زمین بازی</p>
-                </div>
-              </div>
-
-              <div className="space-y-8">
-                <div className="flex items-center gap-x-2">
-                  <GrSwim />
-                  <p className="text-body-s text-neutral-tint-1">
-                    استخر سرپوشیده
-                  </p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <PiSwimmingPool />
-                  <p className="text-body-s text-neutral-tint-1">
-                    سونا و جکوزی
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section
-            id="description"
-            className="scroll-mt-28 py-8 border-b border-neutral-tint-3"
-          >
-            <div className="flex">
-              <p className="heading-h5 border-b-3 border-primary pb-4 mb-10">
-                توضیحات
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">اتاق:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {rooms !== null && rooms !== undefined ? `${fmt(rooms)}` : "—"}
               </p>
             </div>
-            <div className="flex flex-col justify-between">
-              <div className="space-y-4 mb-5">
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-s text-neutral-tint-1">سند شخصی</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-s text-neutral-tint-1">واحد شمالی</p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-s text-neutral-tint-1">
-                    هود و گاز‌‌‌ رو میزی
-                  </p>
-                </div>
-                <div className="flex items-center gap-x-2">
-                  <p className="text-body-s text-neutral-tint-1">
-                    کابینت ممبران
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-x-2 cursor-pointer text-primary">
-                <p className="text-btn-s">نمایش بیشتر</p>
-                <WiDirectionLeft className="size-5" />
-              </div>
+
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">سال ساخت:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {builtYear ? `${fmt(builtYear)}` : "—"}
+              </p>
             </div>
-          </section>
 
-          <PropertyLocation />
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">طبقات:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {totalFloors ? `${fmt(totalFloors)}` : "—"}
+              </p>
+            </div>
 
-          <section></section>
-        </div>
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">طبقه:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {floorNumber ? `${fmt(floorNumber)}` : "—"}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-x-2">
+              <p className="text-body-xs text-neutral-tint-2">جهت:</p>
+              <p className="text-body-s text-neutral-tint-1">
+                {orientation ?? "—"}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ✅ SECTION: facilities */}
+        <section id="facilities" className="scroll-mt-32 py-8 border-b border-neutral-tint-3">
+          <div className="flex">
+            <p className="heading-h6 border-b-3 border-primary pb-3 mb-6">
+              تجهیزات و امکانات
+            </p>
+          </div>
+
+          {amenities.length > 0 ? (
+            <div className="flex flex-wrap gap-2 px-2">
+              {amenities.map((a, i) => (
+                <span
+                  key={i}
+                  className="text-body-1xs px-3 py-1 rounded-full border border-neutral-tint-4 bg-white"
+                >
+                  {a}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-body-1xs text-neutral-tint-2 px-2">
+              موردی برای نمایش وجود ندارد.
+            </p>
+          )}
+        </section>
+
+        {/* ✅ SECTION: description */}
+        <section id="description" className="scroll-mt-32 py-8 border-b border-neutral-tint-3">
+          <div className="flex">
+            <p className="heading-h6 border-b-3 border-primary pb-3 mb-6">
+              توضیحات
+            </p>
+          </div>
+
+          <p className="text-body-s text-neutral-tint-1 px-2 leading-7">
+            {description ?? "توضیحی ثبت نشده است."}
+          </p>
+        </section>
+
+        {/* ✅ SECTION: location (داخل خودش id=location دارد) */}
+        <PropertyLocation property={property} />
       </div>
     </div>
   );

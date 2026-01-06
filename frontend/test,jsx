@@ -1,0 +1,461 @@
+import { useEffect, useRef, useState } from "react";
+import { BiSolidBuildings } from "react-icons/bi";
+import { BsTelephone } from "react-icons/bs";
+import { assets } from "../assetsa/assets";
+import { useRegisterStart } from "../hooks/useRegisterStart";
+import { useRegisterVerify } from "../hooks/useRegisterVerify";
+import { useLoginStart } from "./../hooks/useLoginStart";
+import { useLoginVerify } from "./../hooks/useLoginVerify";
+
+const SignUp = () => {
+  const [step, setStep] = useState("signup");
+  const [name, setName] = useState("");
+  const [family, setFamily] = useState("");
+  const [phone, setPhone] = useState("");
+  const [userType, setUserType] = useState("user");
+  const [accepted, setAccepted] = useState(false);
+  const [building, setBuilding] = useState("");
+  const [authMode, setAuthMode] = useState("register");
+
+  // ---------- Verification State ----------
+  const [code, setCode] = useState(["", "", "", ""]);
+
+  const codeRefs = useRef([]);
+
+  const REGISTER_START_URL = "/auth/register/start";
+  const REGISTER_VERIFY_URL = "/auth/register/verify";
+
+  useEffect(() => {
+    setName("");
+    setFamily("");
+    setAccepted(false);
+    setBuilding("");
+  }, [userType]);
+
+  const {
+    mutate: startRegister,
+    isPending: loading,
+    error,
+  } = useRegisterStart(() => {
+    console.log("REGISTER START OK");
+    setStep("verify");
+  });
+
+  const {
+    mutate: verifyRegister,
+    isPending: loadingVerify,
+    error: verifyError,
+  } = useRegisterVerify(() => {
+    console.log("verfiy success");
+
+    alert("ثبت نام و ورود موفق!");
+  });
+
+  const { mutate: startLogin } = useLoginStart(() => {
+    setStep("verify");
+  });
+
+  const { mutate: verifyLogin } = useLoginVerify(() => {
+    alert("ورود موفق!");
+  });
+
+  // ---------- Form Validation ----------
+  const isUserValid = name.trim().length >= 3 && family.trim().length >= 3;
+
+  const isAgencyValid = building.trim().length >= 3;
+
+  const isFormValid =
+    /^09\d{9}$/.test(phone) &&
+    (userType === "user" ? isUserValid : isAgencyValid);
+
+  // ---------- Sign Up API ----------
+  const handleStartAuth = () => {
+    console.log("CLICKED REGISTER");
+
+    if (authMode === "register") {
+      startRegister({
+        first_name: name.trim(),
+        last_name: family.trim(),
+        phone: phone.toString(),
+        acceptedTerms: Boolean(true),
+        role: userType === "agency" ? "agent" : "user",
+        officeName: userType === "agency" ? "Iran Amlak" : undefined,
+      });
+    } else {
+      startLogin({ phone });
+    }
+  };
+
+  // ---------- Verify Code API ----------
+  const handleVerify = () => {
+    const codeStr = code.join("");
+    if (codeStr.length !== 4) return;
+
+    if (authMode === "register") {
+      verifyRegister({ phone, code: codeStr });
+    } else {
+      verifyLogin({ phone, code: codeStr });
+    }
+  };
+
+  // ---------- Handle Code Input ----------
+  const handleCodeChange = (e, index) => {
+    const val = e.target.value.replace(/\D/g, "");
+    const newCode = [...code];
+    newCode[index] = val;
+    setCode(newCode);
+
+    if (val && index < 3) {
+      codeRefs.current[index + 1].focus();
+    }
+  };
+
+  return (
+    <div className="w-full flex flex-row min-h-screen" dir="ltr">
+      {/* Left Image */}
+      <div className="hidden md:flex w-1/2 bg-[#e9f0ff] items-center justify-center">
+        <img src={assets.login} alt="login" className="w-[80%] max-w-[550px]" />
+      </div>
+
+      {/* Right Form */}
+
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
+        <div className="w-[85%] max-w-[420px]">
+          {/* ---------- Sign Up Step ---------- */}
+          {step === "signup" && (
+            <>
+              <div className="flex flex-col justify-center items-center gap-y-20 mb-12 mt-28">
+                <img src="/src/assets/icons/logo.svg" alt="logo" />
+                <p className="heading-h3 mt-2 font-medium">ورود | ثبت‌نام</p>
+              </div>
+
+              <div
+                className="flex mb-6 bg-neutral-tint-6 rounded-2xl p-1"
+                dir="rtl"
+              >
+                <button
+                  type="button"
+                  onClick={() => setUserType("user")}
+                  className={`flex-1 py-2.5 px-12 rounded-xl transition duration-300 text-btn-s font-bold ${
+                    userType === "user"
+                      ? "bg-white shadow"
+                      : "text-neutral-tint-2"
+                  }`}
+                >
+                  مالک | مستاجر
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setUserType("agency")}
+                  className={`flex-1 py-2.5 px-12 rounded-xl transition duration-300 text-btn-s font-bold ${
+                    userType === "agency" ? "bg-white shadow" : "text-gray-500"
+                  }`}
+                >
+                  آژانس املاک
+                </button>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+
+                  if (authMode === "register") {
+                    if (isFormValid && accepted) handleStartAuth();
+                  } else {
+                    if (/^09\d{9}$/.test(phone)) handleStartAuth();
+                  }
+                }}
+                className="flex flex-col gap-4"
+                dir="rtl"
+              >
+                {userType === "user" && (
+                  <>
+                    <div className="flex gap-x-6">
+                      <div className="flex flex-col relative flex-1">
+                        <label className="absolute bg-white text-body-xxs text-neutral-tint-3 -top-2.5 right-3 px-2 z-10">
+                          نام
+                        </label>
+
+                        <div className="relative">
+                          <input
+                            type="text"
+                            className="w-full p-3 rounded-lg border border-neutral-tint-5 outline-none pr-10"
+                            placeholder="علی"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                          />
+
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="size-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col relative flex-1">
+                        <label className="absolute bg-white text-body-xxs text-neutral-tint-3 -top-2.5 right-6 px-2 z-10">
+                          نام خانوادگی
+                        </label>
+
+                        <input
+                          type="text"
+                          className="w-full p-3 rounded-lg border border-neutral-tint-5 outline-none pr-10"
+                          placeholder="احمدی"
+                          value={family}
+                          onChange={(e) => setFamily(e.target.value)}
+                        />
+
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="size-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <label className="absolute bg-white text-body-xxs text-neutral-tint-3 -top-2.5 right-6 px-2 z-10">
+                        شماره موبایل
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full p-3 rounded-lg border text-left pr-10 outline-none border-neutral-tint-5"
+                        placeholder="09123456789"
+                        dir="ltr"
+                        value={phone}
+                        onChange={(e) => {
+                          const v = e.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 11);
+                          setPhone(v);
+                        }}
+                      />
+
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                        <BsTelephone />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {userType === "agency" && (
+                  <>
+                    <div className="flex gap-x-6">
+                      <div className="flex flex-col relative flex-1">
+                        <label className="absolute bg-white text-body-xxs text-neutral-tint-3 -top-2.5 right-3 px-2 z-10">
+                          نام
+                        </label>
+
+                        <div className="relative">
+                          <input
+                            type="text"
+                            className="w-full p-3 rounded-lg border border-neutral-tint-5 outline-none pr-10"
+                            placeholder="علی"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                          />
+
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="size-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col relative flex-1">
+                        <label className="absolute bg-white text-body-xxs text-neutral-tint-3 -top-2.5 right-6 px-2 z-10">
+                          نام خانوادگی
+                        </label>
+
+                        <input
+                          type="text"
+                          className="w-full p-3 rounded-lg border border-neutral-tint-5 outline-none pr-10"
+                          placeholder="احمدی"
+                          value={family}
+                          onChange={(e) => setFamily(e.target.value)}
+                        />
+
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="size-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col relative flex-1">
+                      <input
+                        type="text"
+                        className="w-full p-3 rounded-lg border border-neutral-tint-5 outline-none pr-10"
+                        placeholder="نام دفتر"
+                        value={building}
+                        onChange={(e) => setBuilding(e.target.value)}
+                      />
+
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                        <BiSolidBuildings />
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <label className="absolute bg-white text-body-xxs text-neutral-tint-3 -top-2.5 right-6 px-2 z-10">
+                        شماره موبایل
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full p-3 rounded-lg border text-left pr-10 outline-none border-neutral-tint-5"
+                        placeholder="09123456789"
+                        dir="ltr"
+                        value={phone}
+                        onChange={(e) => {
+                          const v = e.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 11);
+                          setPhone(v);
+                        }}
+                      />
+
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-tint-3 pointer-events-none">
+                        <BsTelephone />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {authMode === "register" && (
+                  <div className="flex items-center gap-2 mt-4">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      checked={accepted}
+                      onChange={(e) => setAccepted(e.target.checked)}
+                      className="accent-primary size-4 rounded-2xl"
+                    />
+                    <label>
+                      با قوانین{" "}
+                      <a href="#" className="text-primary">
+                        رنتیفای
+                      </a>{" "}
+                      موافق هستم
+                    </label>
+                  </div>
+                )}
+
+                {error && (
+                  <p className="text-red-500 text-sm">{error.message}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={!isFormValid || loading || !accepted}
+                  className={`w-full mb-40 py-3 rounded-lg mt-4 text-white transition ${
+                    isFormValid && !loading && accepted
+                      ? "bg-blue-500 hover:bg-blue-600"
+                      : "bg-gray-300 cursor-not-allowed"
+                  }`}
+                >
+                  {loading ? "در حال ارسال..." : "تأیید و دریافت کد"}
+                </button>
+              </form>
+            </>
+          )}
+
+          {/* ---------- Verify Step ---------- */}
+          {step === "verify" && (
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-4">Rentify</h1>
+              <p className="text-xl font-bold mb-2">کد تأیید</p>
+              <p className="text-gray-600 mb-3">
+                کد ارسال شده به شماره <span className="font-bold">{phone}</span>{" "}
+                را وارد کنید
+              </p>
+
+              <button
+                onClick={() => setStep("signup")}
+                className="text-blue-600 underline text-sm mb-4"
+              >
+                ویرایش شماره موبایل
+              </button>
+
+              {verifyError && (
+                <p className="text-red-500 text-sm mb-2">
+                  {verifyError.message}
+                </p>
+              )}
+
+              <div className="flex justify-between gap-3 mb-5">
+                {code.map((digit, i) => (
+                  <input
+                    key={i}
+                    ref={(el) => (codeRefs.current[i] = el)}
+                    maxLength={1}
+                    className="w-14 h-14 text-xl text-center border rounded-lg"
+                    value={digit}
+                    onChange={(e) => handleCodeChange(e, i)}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={handleVerify}
+                disabled={loadingVerify}
+                className="w-full py-3 bg-blue-600 text-white rounded-lg"
+              >
+                {loadingVerify ? "در حال بررسی..." : "ورود"}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SignUp;

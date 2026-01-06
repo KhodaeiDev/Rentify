@@ -1,37 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { assets } from '../assetsa/assets';
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { assets } from "../assetsa/assets";
+import SignUp from './../pages/SignUp';
 
-const Navbar = ({ textColor = 'text-white' }) => {
+const Navbar = ({ textColor = "text-white" }) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = showMobileMenu ? 'hidden' : 'auto';
-    return () => (document.body.style.overflow = 'auto');
+    document.body.style.overflow = showMobileMenu ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
   }, [showMobileMenu]);
 
-  return (
-    <div className="absolute top-0 left-0 w-full z-10">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4 md:px-8 lg:px-20">
+  const closeMobile = () => setShowMobileMenu(false);
 
+  // مسیرهای واقعی پروژه‌ات
+  const NAV_ITEMS = [
+    { to: "/property", label: "رهن و اجاره" },
+    // { to: "/consultants", label: "مشاورین املاک" },
+    // { to: "/blog", label: "بلاگ رنتی فای" },
+    { to: "/aboutus", label: "درباره ما" },
+  ];
+
+  return (
+    <div className="absolute top-0 left-0 w-full z-50">
+      <div className="container mx-auto flex items-center justify-between py-3 px-4 md:px-8 lg:px-20">
         {/* Logo */}
-        <img src={assets.logo} alt="Logo" className="w-20 md:w-20 lg:w-28" />
+        <Link to="/home" className="shrink-0">
+          <img src={assets.logo} alt="Logo" className="w-20 md:w-20 lg:w-28" />
+        </Link>
 
         {/* Desktop Menu */}
-        <ul className={`hidden md:flex items-center gap-3 lg:gap-7 ${textColor} text-xs lg:text-base whitespace-nowrap`}>
-          <li><a href="rahn" className="hover:text-neutral-tint-1">رهن و اجاره</a></li>
-          <li><a href="consultants" className="hover:text-neutral-tint-1">مشاورین املاک</a></li>
-          <li><a href="blog" className="hover:text-neutral-tint-1">بلاگ رنتی فای</a></li>
-          <li><a href="about" className="hover:text-neutral-tint-1">درباره ما</a></li>
+        <ul
+          className={`hidden md:flex items-center gap-3 lg:gap-7 ${textColor} text-xs lg:text-base whitespace-nowrap`}
+        >
+          {NAV_ITEMS.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  `hover:text-neutral-tint-1 transition ${
+                    isActive ? "text-primary" : ""
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-2 lg:gap-4">
-          <button className="bg-white px-4 py-1.5 rounded-full border border-neutral-300 text-xs lg:text-base cursor-pointer">
+          <Link
+            to="/SignUp"
+            className="bg-white px-4 py-1.5 rounded-full border border-neutral-300 text-xs lg:text-base cursor-pointer"
+          >
             ورود / ثبت نام
-          </button>
-          <button className="bg-primary-tint-1 text-white px-4 py-1.5 rounded-full text-xs lg:text-base cursor-pointer">
+          </Link>
+
+          <Link
+            to="/property"
+            className="bg-primary-tint-1 text-white px-4 py-1.5 rounded-full text-xs lg:text-base cursor-pointer"
+          >
             + ثبت آگهی رایگان
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -46,13 +78,13 @@ const Navbar = ({ textColor = 'text-white' }) => {
       {/* Mobile Fullscreen Menu */}
       <div
         className={`fixed top-0 right-0 h-full w-full bg-white z-50 transition-all duration-300 md:hidden ${
-          showMobileMenu ? 'translate-x-0' : 'translate-x-full'
+          showMobileMenu ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Close Button */}
         <div className="flex justify-end p-6">
           <img
-            onClick={() => setShowMobileMenu(false)}
+            onClick={closeMobile}
             className="w-7 cursor-pointer"
             src={assets.cross_icon}
             alt="close"
@@ -61,17 +93,37 @@ const Navbar = ({ textColor = 'text-white' }) => {
 
         {/* Menu Items */}
         <ul className="flex flex-col text-center gap-6 text-lg font-medium mt-10">
-          <a onClick={() => setShowMobileMenu(false)} href="rahn" className="py-2">رهن و اجاره</a>
-          <a onClick={() => setShowMobileMenu(false)} href="consultants" className="py-2">مشاورین املاک</a>
-          <a onClick={() => setShowMobileMenu(false)} href="blog" className="py-2">بلاگ رنتی فای</a>
-          <a onClick={() => setShowMobileMenu(false)} href="about" className="py-2">درباره ما</a>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                onClick={closeMobile}
+                className={({ isActive }) =>
+                  `py-2 block transition ${
+                    isActive ? "text-primary" : "text-neutral-tint-1"
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
 
-          <button className="bg-primary-tint-1 text-white w-3/4 mx-auto py-2 rounded-full">
+          <Link
+            to="/property"
+            onClick={closeMobile}
+            className="bg-primary-tint-1 text-white w-3/4 mx-auto py-2 rounded-full block"
+          >
             + ثبت آگهی رایگان
-          </button>
-          <button className="bg-neutral-200 w-3/4 mx-auto py-2 rounded-full">
+          </Link>
+
+          <Link
+            to="/SignUp"
+            onClick={closeMobile}
+            className="bg-neutral-200 w-3/4 mx-auto py-2 rounded-full block"
+          >
             ورود / ثبت نام
-          </button>
+          </Link>
         </ul>
       </div>
     </div>
